@@ -5,7 +5,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Сериализатор берет моедль Юзерс и вернет поля из фиелдс"""
     class Meta:
         model = User
-        fields = ['id', 'email', 'last_name', 'first_name', 'username', 'is_active', 'data_joined']
+        fields = ['id', 'email', 'last_name', 'first_name', 'username', 'is_active', 'date_joined']
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,7 +17,7 @@ class UserWithProfileSerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = User
-        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'is_active', 'data_joined', 'profile']
+        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'is_active', 'date_joined', 'profile']
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     """Для регистраций объявляем пасворд и пасворд конфирм, берем модель юзерс и вернет поля из филдс"""
@@ -29,7 +29,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ['email', 'username', 'first_name', 'last_name', 'password', 'password_confirm']
     
     def validate(self,attrs):
-        if attrs['password'] == attrs['password_confirm']:
+        if attrs['password'] != attrs['password_confirm']:
             raise serializers.ValidationError('Password do not match.')
         return attrs
     
